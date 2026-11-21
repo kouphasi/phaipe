@@ -8,18 +8,31 @@ import (
 	"strconv"
 )
 
+const version = "0.1.0"
+
 type config struct {
 	protocol string
 	port     int
 }
 
 func main() {
+
+	if hasVersion(os.Args) {
+		mes := fmt.Sprintf("phipe version is %s", version)
+		fmt.Fprintln(os.Stdout, mes)
+		os.Exit(0)
+	}
+
 	cnf, err := parseArgs(os.Args)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 	fmt.Printf("protocol: %s\nport: %d\n", cnf.protocol, cnf.port)
+}
+
+func hasVersion(args []string) bool {
+	return (args[1] == "--version")
 }
 
 func parseArgs(args []string) (config, error) {
