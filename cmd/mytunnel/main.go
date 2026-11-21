@@ -32,7 +32,7 @@ func main() {
 }
 
 func hasVersion(args []string) bool {
-	return (args[1] == "--version")
+	return len(args) == 2 && args[1] == "--version"
 }
 
 func parseArgs(args []string) (config, error) {
